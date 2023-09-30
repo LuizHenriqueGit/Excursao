@@ -7,7 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -20,7 +22,7 @@ import javax.swing.JTextArea;
 
 public class ExcursaoInterface {
 
-	private JFrame frmCriadorDeExcurso;
+	private JFrame frameExcursao;
 	private Excursao excursao;
 
 	/**
@@ -31,7 +33,7 @@ public class ExcursaoInterface {
 			public void run() {
 				try {
 					ExcursaoInterface window = new ExcursaoInterface();
-					window.frmCriadorDeExcurso.setVisible(true);
+					window.frameExcursao.setVisible(true);
 		
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,26 +54,35 @@ public class ExcursaoInterface {
 	 */
 	private void initialize() {
 	
-		frmCriadorDeExcurso = new JFrame();
-		frmCriadorDeExcurso.setResizable(false);
-		frmCriadorDeExcurso.setTitle("Criador de Excursão");
-		frmCriadorDeExcurso.setBounds(100, 100, 407, 465);
-		frmCriadorDeExcurso.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmCriadorDeExcurso.getContentPane().setLayout(null);
-		frmCriadorDeExcurso.setLocationRelativeTo(null);
+		//frame principal
+		frameExcursao = new JFrame();
+		frameExcursao.setResizable(false);
+		frameExcursao.setTitle("Criador de Excursão");
+		frameExcursao.setBounds(100, 100, 407, 465);
+		frameExcursao.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frameExcursao.getContentPane().setLayout(null);
+		frameExcursao.setLocationRelativeTo(null);
+		
+		try {
+			excursao = new Excursao(1);
+		}
+		catch(Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
 
-		// Área de texto
+
+		//area de texto
 		JTextArea txtrAsReservasDa = new JTextArea();
 		txtrAsReservasDa.setLineWrap(true);
 		txtrAsReservasDa.setFont(new Font("Gadugi", Font.PLAIN, 11));
-		txtrAsReservasDa.setText("Os dados da excursão aparecerão \naqui.");
+		txtrAsReservasDa.setText("Os dados da excursão aparecerão aqui.");
 		txtrAsReservasDa.setBounds(170, 74, 200, 302);
 		txtrAsReservasDa.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK, 1), BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		txtrAsReservasDa.requestFocus();
 		txtrAsReservasDa.addFocusListener(new FocusListener() {
 		    @Override
 		    public void focusGained(FocusEvent e) {
-		        if (txtrAsReservasDa.getText().equals("Os dados da excursão aparecerão \naqui.")) {
+		        if (txtrAsReservasDa.getText().equals("Os dados da excursão aparecerão aqui.")) {
 		        	txtrAsReservasDa.setText("");
 		        	txtrAsReservasDa.setForeground(Color.BLACK);
 		        }
@@ -80,45 +91,43 @@ public class ExcursaoInterface {
 		    public void focusLost(FocusEvent e) {
 		        if (txtrAsReservasDa.getText().isEmpty()) {
 		        	txtrAsReservasDa.setForeground(Color.GRAY);
-		        	txtrAsReservasDa.setText("Os dados da excursão aparecerão \naqui.");
+		        	txtrAsReservasDa.setText("Os dados da excursão aparecerão aqui.");
 		        }
 		    }
 		    });
-	
-		frmCriadorDeExcurso.getContentPane().add(txtrAsReservasDa);
+		frameExcursao.getContentPane().add(txtrAsReservasDa);
 		
-		// Título
+		//título
 		JLabel lblNewLabel = new JLabel("Projeto 1 - Excursão");
 		lblNewLabel.setFont(new Font("Gadugi", Font.BOLD, 19));
 		lblNewLabel.setBounds(102, 11, 180, 23);
-		frmCriadorDeExcurso.getContentPane().add(lblNewLabel);
+		frameExcursao.getContentPane().add(lblNewLabel);
 		
-		// Subtítulo
-		JLabel lblNewLabel_3 = new JLabel("<html><center>Grupo: Luiz Henrique e Lucas Jaud</center></html>");
+		//subtítulo
+		JLabel lblNewLabel_3 = new JLabel("Grupo: Luiz Henrique e Lucas Jaud");
 		lblNewLabel_3.setBounds(102, 34, 205, 14);
 		lblNewLabel_3.setFont(new Font("Gadugi", Font.PLAIN, 11));
-		frmCriadorDeExcurso.getContentPane().add(lblNewLabel_3);
+		frameExcursao.getContentPane().add(lblNewLabel_3);
 		
-		// Subtítulo 1
+		//subtítulo 1
 		JLabel lblNewLabel_1 = new JLabel("Reservas");
 		lblNewLabel_1.setFont(new Font("Gadugi", Font.BOLD, 13));
 		lblNewLabel_1.setBounds(59, 192, 63, 14);
-		frmCriadorDeExcurso.getContentPane().add(lblNewLabel_1);
+		frameExcursao.getContentPane().add(lblNewLabel_1);
 		
-		// Subtítulo 2
+		//subtítulo 2
 		JLabel lblNewLabel_2 = new JLabel("Excursão");
 		lblNewLabel_2.setFont(new Font("Gadugi", Font.BOLD, 13));
 		lblNewLabel_2.setBounds(59, 77, 63, 14);
-		frmCriadorDeExcurso.getContentPane().add(lblNewLabel_2);
+		frameExcursao.getContentPane().add(lblNewLabel_2);
 		
-		//Versão
-		
+		//versão
 		JLabel label = new JLabel("V1.0");
 		label.setFont(new Font("Gadugi", Font.BOLD, 12));
 		label.setBounds(73, 396, 46, 14);
-		frmCriadorDeExcurso.getContentPane().add(label);
+		frameExcursao.getContentPane().add(label);
 		
-		//Botão: criar reserva
+		//botão: criar reserva
 		JButton btnCriarRes = new JButton("Criar reserva");
 		btnCriarRes.setFont(new Font("Gadugi", Font.PLAIN, 11));
 		btnCriarRes.setEnabled(false);
@@ -134,9 +143,9 @@ public class ExcursaoInterface {
 				}
 			}
 		});
-		frmCriadorDeExcurso.getContentPane().add(btnCriarRes);
+		frameExcursao.getContentPane().add(btnCriarRes);
 		
-		//Botão: cancelar reserva
+		//botão: cancelar reserva
 		JButton btnCancelarRes = new JButton("Cancelar (Nome)");
 		btnCancelarRes.setBounds(29, 285, 120, 23);
 		btnCancelarRes.setEnabled(false);
@@ -152,11 +161,10 @@ public class ExcursaoInterface {
 				}
 			}
 		});
-		frmCriadorDeExcurso.getContentPane().add(btnCancelarRes);
+		frameExcursao.getContentPane().add(btnCancelarRes);
 		
-		//Botão: cancelar cpf
+		//botão: cancelar cpf
 		JButton btnCancelarRes_1 = new JButton("Cancelar (CPF)");
-
 		btnCancelarRes_1.setFont(new Font("Gadugi", Font.PLAIN, 11));
 		btnCancelarRes_1.setEnabled(false);
 		btnCancelarRes_1.setBounds(29, 251, 120, 23);
@@ -170,9 +178,9 @@ public class ExcursaoInterface {
 				}
 			}
 		});
-		frmCriadorDeExcurso.getContentPane().add(btnCancelarRes_1);
+		frameExcursao.getContentPane().add(btnCancelarRes_1);
 		
-		//Botão: listar por CPF
+		//botão: listar por CPF
 		JButton btnListarCPF = new JButton("Listar por CPF");
 		btnListarCPF.setBounds(29, 319, 120, 23);
 		btnListarCPF.setFont(new Font("Gadugi", Font.PLAIN, 11));
@@ -192,21 +200,21 @@ public class ExcursaoInterface {
 				txtrAsReservasDa.setText(aux);
 			}
 		});
-		frmCriadorDeExcurso.getContentPane().add(btnListarCPF);
+		frameExcursao.getContentPane().add(btnListarCPF);
 
-		//Botão: valor total
+		//botão: valor total
 		JButton btnValorTotal = new JButton("Valor total");
 		btnValorTotal.setFont(new Font("Gadugi", Font.PLAIN, 11));
 		btnValorTotal.setEnabled(false);
 		btnValorTotal.setBounds(29, 136, 120, 23);
 		btnValorTotal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				txtrAsReservasDa.setText(excursao.calcularValorTotal() + "");
+				txtrAsReservasDa.setText("Valor: R$: "+excursao.calcularValorTotal());
 			}
 		});
-		frmCriadorDeExcurso.getContentPane().add(btnValorTotal);
+		frameExcursao.getContentPane().add(btnValorTotal);
 		
-		//Botão: salvar
+		//botão: salvar
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.setFont(new Font("Gadugi", Font.PLAIN, 11));
 		btnSalvar.setEnabled(false);
@@ -216,9 +224,9 @@ public class ExcursaoInterface {
 				excursao.salvarExcursao();
 			}
 		});
-		frmCriadorDeExcurso.getContentPane().add(btnSalvar);
+		frameExcursao.getContentPane().add(btnSalvar);
 	
-		//Botão: listar por nome
+		//botão: listar por nome
 		JButton btnListarNome = new JButton("Listar por nome");
 		btnListarNome.setFont(new Font("Gadugi", Font.PLAIN, 11));
 		btnListarNome.setBounds(29, 353, 120, 23);
@@ -239,27 +247,10 @@ public class ExcursaoInterface {
 					
 			}
 		});
-		frmCriadorDeExcurso.getContentPane().add(btnListarNome);
+		frameExcursao.getContentPane().add(btnListarNome);
 		
-		//Botão: carregar
-		JButton btnCarregar = new JButton("Carregar");
-		btnCarregar.setFont(new Font("Gadugi", Font.PLAIN, 11));
-		btnCarregar.setBounds(281, 392, 89, 23);
-		btnCarregar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				btnListarNome.setEnabled(true);
-				btnSalvar.setEnabled(true);
-				btnValorTotal.setEnabled(true);
-				btnListarCPF.setEnabled(true);
-				btnCancelarRes.setEnabled(true);
-				btnCriarRes.setEnabled(true);
-				btnCancelarRes_1.setEnabled(true);
-			}
-		});
-		frmCriadorDeExcurso.getContentPane().add(btnCarregar);
-		
-		// Botão: Criar excursão
-		JButton btnCriarExcursao = new JButton("<html><center>Criar</center></html>");
+		//botão: criar excursão
+		JButton btnCriarExcursao = new JButton("Criar");
 		btnCriarExcursao.setFont(new Font("Gadugi", Font.PLAIN, 11));
 		btnCriarExcursao.setBounds(29, 102, 120, 23);
 		btnCriarExcursao.addActionListener(new ActionListener() {
@@ -278,6 +269,8 @@ public class ExcursaoInterface {
 					btnCancelarRes.setEnabled(true);
 					btnCriarRes.setEnabled(true);
 					btnCancelarRes_1.setEnabled(true);
+					
+					excursao.salvarExcursao();
 				} catch (NumberFormatException e2) {
 					JOptionPane.showMessageDialog(null, "Formato numerico invalido");
 				} catch (Exception e1) {
@@ -285,6 +278,29 @@ public class ExcursaoInterface {
 				} 
 			}
 		});
-		frmCriadorDeExcurso.getContentPane().add(btnCriarExcursao);
+		frameExcursao.getContentPane().add(btnCriarExcursao);
+		
+		//botão: carregar
+		JButton btnCarregar = new JButton("Carregar");
+		btnCarregar.setFont(new Font("Gadugi", Font.PLAIN, 11));
+		btnCarregar.setBounds(281, 392, 89, 23);
+		btnCarregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					int codigo = Integer.parseInt(JOptionPane.showInputDialog("Digite o código da excursão: "));
+					excursao.carregarExcursao(codigo);
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage());
+				}
+				btnListarNome.setEnabled(true);
+				btnSalvar.setEnabled(true);
+				btnValorTotal.setEnabled(true);
+				btnListarCPF.setEnabled(true);
+				btnCancelarRes.setEnabled(true);
+				btnCriarRes.setEnabled(true);
+				btnCancelarRes_1.setEnabled(true);
+			}
+		});
+		frameExcursao.getContentPane().add(btnCarregar);
 	}
 }

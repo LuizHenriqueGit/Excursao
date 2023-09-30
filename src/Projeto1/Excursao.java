@@ -8,18 +8,17 @@ import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Excursao {
 	
 	// Atributos
 	
-	private int codexc; // código da excursão
-	private double precoex; // preco da excursão
-	private int max; // máximo de reservas
-	private ArrayList<String> listadereservas = new ArrayList<String>(); // lista de reservas da excursão
+	private int codexc; // codigo da excursao
+	private double precoex; // preco da excursao
+	private int max; // maximo de reservas
+	private ArrayList<String> listadereservas = new ArrayList<String>(); // lista de reservas da excursao
 	
 	// Construtores
 	
@@ -114,24 +113,44 @@ public class Excursao {
 	public void salvarExcursao() {
 		
 		try {
-		Path path = Path.of("./"+getCodexc()+".txt");
-		
-		if (Files.notExists(path)) {
-			Files.createFile(path);
-		}
-		
-		String preco = this.getPrecoex() + "\n";
-		String maximo = this.getMax() + "\n";
-		String reservas = this.getListadereservas() + "\n";
-
-		Files.writeString(path, preco, StandardOpenOption.APPEND);
-		Files.writeString(path, maximo, StandardOpenOption.APPEND);
-		Files.writeString(path, reservas, StandardOpenOption.APPEND);
-
-		
+			File f = new File(new File(".\\"+getCodexc()+".txt").getCanonicalPath());
+			FileWriter arquivo = new FileWriter(f, false); 
+			
+			String preco = this.getPrecoex() + "\n";
+			String maximo = this.getMax() + "\n";
+			
+			arquivo.write(preco);
+			arquivo.write(maximo);
+			
+			for (int i = 0; i < listadereservas.size(); i++)
+				arquivo.write(listadereservas.get(i) + "\n");
+			
+			arquivo.close();
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void carregarExcursao(int codigo) throws IOException {
+		
+		
+		File f = new File(new File(".\\"+codigo+".txt").getCanonicalPath()); 
+		Scanner arquivo = new Scanner(f);
+		
+		codexc = codigo;
+		precoex = Double.parseDouble(arquivo.nextLine());
+		max = Integer.parseInt(arquivo.nextLine());
+		
+		ArrayList<String> reservas = new ArrayList<String>();
+		
+		while (arquivo.hasNextLine()) {
+			reservas.add(arquivo.nextLine());
+		}
+			
+		listadereservas = reservas;
+		
+		arquivo.close();
 	}
 	
 	@Override
