@@ -1,13 +1,8 @@
 package Projeto1;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -42,10 +37,10 @@ public class Excursao {
 	public void criarReserva(String cpf, String nome) throws Exception {
 		
 		if (max == listadereservas.size())
-			throw new Exception("Número máximo de vagas atingido, não é possível criar novas reservas.");
+			throw new Exception("Numero maximo de vagas atingido, nao e possivel criar novas reservas.");
 		
 		if (cpf.equals("") || nome.equals(""))
-			throw new Exception("CPF e nome não podem ser vazios.");
+			throw new Exception("CPF e nome nao podem ser vazios.");
 		
 		String[] reserva;
 		
@@ -53,7 +48,7 @@ public class Excursao {
 			for (int i = 0; i < listadereservas.size(); i++) {
 				reserva = listadereservas.get(i).split("/");
 				if (reserva[1].equals(nome)) 
-					throw new IllegalStateException("Nome já cadastrado na excursão");
+					throw new IllegalStateException("Nome ja cadastrado na excursao");
 			} 		
 		}
 
@@ -64,14 +59,14 @@ public class Excursao {
 		
 		boolean remove = listadereservas.removeIf(reserva -> reserva.equals(cpf + "/" + nome));
 		if (!remove)
-			throw new Exception("Reserva não encontrada.");
+			throw new Exception("Reserva nao encontrada.");
 	}
 	
 	public void cancelarReserva(String cpf) throws Exception {
 		
 		boolean remove = listadereservas.removeIf(reserva -> reserva.split("/")[0].equals(cpf));
 		if (!remove)
-			throw new Exception("CPF não encontrado.");
+			throw new Exception("CPF nao encontrado.");
 	}
 	
 	public ArrayList<String> listarReservasPorCpf(String digitos) {
@@ -155,9 +150,9 @@ public class Excursao {
 	
 	@Override
 	public String toString() {
-		return "Código da excursão: " + codexc +
-				"\nValor da excursão:  " + precoex +
-				"\nMáximo de reservas: " + max + 
+		return "\nCodigo da excursao: " + codexc +
+				"\nValor da excursao:  " + precoex +
+				"\nMaximo de reservas: " + max + 
 				"\nTotal de reservas: " + listadereservas.size();
 	}
 

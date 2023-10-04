@@ -5,14 +5,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Scanner;
-
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,7 +18,7 @@ public class ExcursaoInterface {
 
 	private JFrame frameExcursao;
 	private Excursao excursao;
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -79,22 +73,8 @@ public class ExcursaoInterface {
 		txtrAsReservasDa.setBounds(170, 74, 200, 302);
 		txtrAsReservasDa.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK, 1), BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		txtrAsReservasDa.requestFocus();
-		txtrAsReservasDa.addFocusListener(new FocusListener() {
-		    @Override
-		    public void focusGained(FocusEvent e) {
-		        if (txtrAsReservasDa.getText().equals("Os dados da excursão aparecerão aqui.")) {
-		        	txtrAsReservasDa.setText("");
-		        	txtrAsReservasDa.setForeground(Color.BLACK);
-		        }
-		    }
-		    @Override
-		    public void focusLost(FocusEvent e) {
-		        if (txtrAsReservasDa.getText().isEmpty()) {
-		        	txtrAsReservasDa.setForeground(Color.BLACK);
-		        	txtrAsReservasDa.setText("Os dados da excursão aparecerão aqui.");
-		        }
-		    }
-		    });
+		txtrAsReservasDa.setEnabled(false);
+		txtrAsReservasDa.setDisabledTextColor(Color.BLACK);
 		frameExcursao.getContentPane().add(txtrAsReservasDa);
 		
 		//titulo
